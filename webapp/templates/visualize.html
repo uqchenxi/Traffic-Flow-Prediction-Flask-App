@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Dataset Visualization</title>
+        <meta name = "viewport" content = "width = device-width initial-scale = 1.0">
+        <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css')}}">
+        <link rel = "stylesheet" href="https://fonts.googleapis.com/css?family=Gugi|Roboto+Condensed:400,400i,700,700i">
+    </head>
+    <body>
+        <nav>
+            <label class = "logo">TransLink Dashboard</label>
+
+            <ul>
+                <li><a href = "{{ url_for('upload') }}">Upload</a></li>
+                <li><a class = "active" href = "{{ url_for('visualize') }}">Visualization & Analysis</a></li>
+                <li><a href = "{{ url_for('prediction') }}">Prediction</a></li>
+                <li><a href = "{{ url_for('advice') }}">Travel Advice</a></li>
+            </ul>
+        </nav>
+
+        <article>
+            <ul class = "tabs">
+                <li><a href = "#" title = "chart-stop">Costumize stop ID</a></li>
+                <li><a href = "#" title = "chart-route">Costumize route ID</a></li>
+                <li><a href = "#" title = "chart-stop-route">Costumize both route ID and stop ID</a></li>
+            </ul>
+
+            <div class = "charts" >
+                <div class = "chart-frame" id = "chart-stop">
+                    <div class = "e-chart" id = "stop_visualize"></div>
+                    <form class = "first-row-form" id = "visualize-stop" action = "{{ url_for('visualize') }}" method = 'POST'>
+                        {{ form_stop.csrf_token }}
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.stop_id.label }}</div>
+                            <div class = "form-input">{{ form_stop.stop_id (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.stop_time_interval.label }}</div>
+                            <div class = "form-input">{{ form_stop.stop_time_interval (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.stop_date_start.label }}</div>
+                            <div class = "form-input">{{ form_stop.stop_date_start (class = "input") }}
+                                {% for message in form_stop.stop_date_start.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.stop_date_end.label }}</div>
+                            <div class = "form-input">{{ form_stop.stop_date_end (class = "input") }}
+                                {% for message in form_stop.stop_date_end.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.stop_timing.label }}</div>
+                            <div class = "form-input">{{ form_stop.stop_timing (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">{{ form_stop.submit_stop (class = "submit") }}</div>
+                    </form>
+                </div>
+
+                <div class = "chart-frame" id = "chart-route">
+                    <div class = "e-chart" id = "route_visualize"></div>
+                    <form class = "first-row-form" id = "visualize-route" action = "{{ url_for('visualize') }}" method = 'POST'>
+                        {{ form_route.csrf_token }}
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.route_id.label }}</div>
+                            <div class = "form-input">{{ form_route.route_id (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.route_time_interval.label }}</div>
+                            <div class = "form-input">{{ form_route.route_time_interval (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.route_date_start.label }}</div>
+                            <div class = "form-input">{{ form_route.route_date_start (class = "input") }}
+                                {% for message in form_route.route_date_start.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.route_date_end.label }}</div>
+                            <div class = "form-input">{{ form_route.route_date_end (class = "input") }}
+                                {% for message in form_route.route_date_end.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.route_timing.label }}</div>
+                            <div class = "form-input">{{ form_route.route_timing (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">{{ form_route.submit_route (class = "submit") }}</div>
+                    </form>
+                </div>
+
+                <div class = "chart-frame" id = "chart-stop-route">
+                    <div class = "e-chart" id = "stop_route_visualize"></div>
+                    <form class = "second-row-form" id = "visualize-stop-route" action = "{{ url_for('visualize') }}" method = 'POST'>
+                        {{ form_stop_route.csrf_token }}
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.stop_route_id_stop.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.stop_route_id_stop (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.stop_route_id_route.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.stop_route_id_route (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.stop_route_time_interval.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.stop_route_time_interval (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.stop_route_date_start.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.stop_route_date_start (class = "input") }}
+                                {% for message in form_stop_route.stop_route_date_start.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.stop_route_date_end.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.stop_route_date_end (class = "input") }}
+                                {% for message in form_stop_route.stop_route_date_end.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.stop_route_timing.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.stop_route_timing (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">{{ form_stop_route.submit_stop_route (class = "submit") }}</div>
+                    </form>
+                </div>
+            </div>
+        </article>
+    </body>
+
+    <script src = "{{ url_for('static', filename = 'js/jquery-3.3.1.min.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/loading.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/echarts.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/script.js') }}"></script>
+</html>

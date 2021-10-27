@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Prediction</title>
+        <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css')}}">
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Gugi|Roboto+Condensed:400,400i,700,700i">
+        <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+    </head>
+    <body>
+        <nav>
+            <label class = "logo">TransLink Dashboard</label>
+            <ul>
+                <li><a href = "{{ url_for('upload') }}">Upload</a></li>
+                <li><a href = "{{ url_for('visualize') }}">Visualization & Analysis</a></li>
+                <li><a href = "{{ url_for('prediction') }}">Prediction</a></li>
+                <li><a class = "active" href = "{{ url_for('advice') }}">Travel Advice</a></li>
+            </ul>
+        </nav>
+        <article>
+            <ul class = "tabs">
+                <li><a href = "#" title = "traffic-condition">Top Busy Routes</a></li>
+                <li><a href = "#" title = "geographical-information">Heat Map</a></li>
+            </ul>
+            <div class = "charts">
+                <div class = "chart-frame" id = "traffic-condition">
+                    <div class = "e-chart" id = "top_routes"></div>
+                </div>
+                <div class = "chart-frame" id = "geographical-information">
+                    <div class = "e-chart" id="user-map">
+                    </div>
+                    <div>
+                        <div id="slider-frame">
+                            <label for="amount">Date Range:</label>
+                            <input type="text" id="amount" size="25"/>
+                        </div>
+                        <div id="slider-range"></div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </body>
+    <script src = "{{ url_for('static', filename = 'js/jquery-3.3.1.min.js') }}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/echarts.js') }}"></script>
+    <script src = "{{ url_for('static', filename = 'js/advice.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/loading.js') }}"></script>
+    <script async defer
+			src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBaRSzAEV3AdABPuZZSiVyqD0BD3pEOLk8&libraries=visualization&callback=initMap">
+    </script>
+</html>

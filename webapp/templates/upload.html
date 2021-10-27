@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Upload</title>
+        <meta name = "viewport" content = "width = device-width initial-scale = 1.0">
+        <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css')}}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Gugi|Roboto+Condensed:400,400i,700,700i">
+    </head>
+
+    <body>
+        <nav>
+            <label class = "logo">TransLink Dashboard</label>
+
+            <ul>
+                <li><a class = "active" href = "{{ url_for('upload') }}">Upload</a></li>
+            </ul>
+        </nav>
+
+        <form class = "uploading " id = "upload-form" action = "{{ url_for('upload') }}" method = "POST" enctype="multipart/form-data" onsubmit="return   onLoading();">
+            <h2 class = "heading">Upload TransLink Dataset</h2>
+
+            <div class = "form-input"><input id = "file_uploading" name = "file" type = "file" required></div>
+
+            <div class = "input-row">
+                <div class = "form-label">start date</div>
+                <div class = "form-input"><input name = "date range start" class = "input" type = "text" placeholder="YYYY/mm/DD HH:MM" required></div>
+            </div>
+
+            <div class = "input-row">
+                <div class = "form-label">end date</div>
+                <div class = "form-input"><input name = "date range end" class = "input" type = "text" placeholder="YYYY/mm/DD HH:MM" required></div>
+            </div>
+
+            <button type = "submit" id = "processing" class = "submit">Processing</button>
+        </form>
+
+        <div class="loader-wrapper">
+            <div class = 'loading-div'>
+                <div><span class="loader"><span class="loader-inner"></span></span></div>
+                <div class = 'loading-label'>Loading...</div>
+            </div>
+        </div>
+    </body>
+
+    <script src = "{{ url_for('static', filename = 'js/jquery-3.3.1.min.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/loading.js') }}"></script>
+</html>
