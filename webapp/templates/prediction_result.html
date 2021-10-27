@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Prediction</title>
+        <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css')}}">
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Gugi|Roboto+Condensed:400,400i,700,700i">
+    </head>
+
+    <body>
+        <nav>
+            <label class = "logo">TransLink Dashboard</label>
+
+            <ul>
+                <li><a href = "{{ url_for('upload') }}">Upload</a></li>
+                <li><a href = "{{ url_for('visualize') }}">Visualization & Analysis</a></li>
+                <li><a class = "active" href = "{{ url_for('prediction') }}">Prediction</a></li>
+                <li><a href = "{{ url_for('advice') }}">Travel Advice</a></li>
+            </ul>
+        </nav>
+
+        <article>
+            <ul class = "tabs">
+                <li><a href = "#" title = "dynamic-future">Prediction for Future Steps</a></li>
+                <li><a href = "#" title = "result">Prediction Result</a></li>
+                <li><a href = "#" title = "training-process">Dynamic Training Process</a></li>
+            </ul>
+
+            <div class = "charts">
+                <div class = "chart-frame" id = "dynamic-future">
+                    <div class = "e-chart" id = "dynamic-figure"></div>
+                    <form class = "first-row-form" action = "{{ url_for('prediction_result') }}" method = 'POST'>
+                        {{ form.csrf_token }}
+                        <div class = "input-row">{{ form.submit_retry (class = "submit") }}</div>
+                    </form>
+                </div>
+
+                <div class = "chart-frame" id = "result">
+                    <figure>
+                        <div class="statistics-box">
+                            <div>Error:</div>
+                            <div>{{ rmse }}</div>
+                            <div>{{ mape }}%</div>
+                        </div>
+                        <img src = "{{ src }}"/>
+                    </figure>
+                    <form class = "first-row-form" action = "{{ url_for('prediction_result') }}" method = 'POST'>
+                        {{ form.csrf_token }}
+                        <div class = "input-row">{{ form.submit_retry (class = "submit") }}</div>
+                    </form>
+                </div>
+
+                <div class = "chart-frame" id = "training-process">
+                    <figure><img src = "{{ url_for('static', filename = 'prediction.gif') }}" /></figure>
+                    <form class = "first-row-form" action = "{{ url_for('prediction_result') }}" method = 'POST'>
+                        {{ form.csrf_token }}
+                        <div class = "input-row">{{ form.submit_retry (class = "submit") }}</div>
+                    </form>
+                </div>
+            </div>
+        </article>
+    </body>
+    <script src = "{{ url_for('static', filename = 'js/jquery-3.3.1.min.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/echarts.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/loading.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/predict.js') }}"></script>
+</html>

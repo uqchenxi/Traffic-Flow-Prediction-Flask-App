@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang = "en" dir = "ltr">
+    <head>
+        <meta charset = "UTF-8">
+        <title>Prediction</title>
+        <link rel = "stylesheet" href = "{{ url_for('static', filename = 'css/style.css')}}">
+        <link rel = "stylesheet" href = "https://fonts.googleapis.com/css?family=Gugi|Roboto+Condensed:400,400i,700,700i">
+    </head>
+
+    <body>
+        <nav>
+            <label class = "logo">TransLink Dashboard</label>
+
+            <ul>
+                <li><a href = "{{ url_for('upload') }}">Upload</a></li>
+                <li><a href = "{{ url_for('visualize') }}">Visualization & Analysis</a></li>
+                <li><a class = "active" href = "{{ url_for('prediction') }}">Prediction</a></li>
+                <li><a href = "{{ url_for('advice') }}">Travel Advice</a></li>
+            </ul>
+        </nav>
+
+        <article>
+            <ul class = "tabs">
+                <li><a href="#" title = "stop-predict-form" >Customize stop ID</a></li>
+                <li><a href="#" title = "route-predict-form" >Customize route ID</a></li>
+                <li><a href="#" title = "stop-route-predict-form" >Customize both stop and route ID</a></li>
+            </ul>
+
+            <div class = "charts" id = "predict-form">
+                <div class = "chart-frame" id = "stop-predict-form">
+                    <form class = "first-row-form" id = "predict-stop" action = "{{ url_for('prediction') }}" method = 'POST' onsubmit="return   onLoading();">
+                        {{ form_stop.csrf_token }}
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_id.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_id (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_epoch.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_epoch (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_train.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_train (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_future_steps.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_future_steps (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_date_start.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_date_start (class = "input") }}
+                                {% for message in form_stop.predict_stop_date_start.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_date_end.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_date_end (class = "input") }}
+                                {% for message in form_stop.predict_stop_date_end.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_timing.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_timing (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop.predict_stop_model.label }}</div>
+                            <div class = "form-input">{{ form_stop.predict_stop_model (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">{{ form_stop.submit_stop_predict (class = "submit") }}</div>
+                    </form>
+                </div>
+
+                <div class = "chart-frame" id = "route-predict-form">
+                    <form class = "first-row-form" id = "predict-route" action = "{{ url_for('prediction') }}" method = 'POST' onsubmit="return   onLoading();">
+                        {{ form_route.csrf_token }}
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_id.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_id (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_epoch.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_epoch (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_train.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_train (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_future_steps.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_future_steps (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_date_start.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_date_start (class = "input") }}
+                                {% for message in form_route.predict_route_date_start.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_date_end.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_date_end (class = "input") }}
+                                {% for message in form_route.predict_route_date_end.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_timing.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_timing (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_route.predict_route_model.label }}</div>
+                            <div class = "form-input">{{ form_route.predict_route_model (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">{{ form_route.submit_route_predict (class = "submit") }}</div>
+                    </form>
+                </div>
+
+                <div class = "chart-frame" id = "stop-route-predict-form">
+                    <form class = "second-row-form" id = "predict-stop-route" action = "{{ url_for('prediction') }}" method = 'POST' onsubmit="return   onLoading();">
+                        {{ form_stop_route.csrf_token }}
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_id_stop.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_id_stop (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_id_route.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_id_route (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_epoch.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_epoch (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_train.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_train (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_future_steps.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_future_steps (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_date_start.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_date_start (class = "input") }}
+                                {% for message in form_stop_route.predict_stop_route_date_start.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_date_end.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_date_end (class = "input") }}
+                                {% for message in form_stop_route.predict_stop_route_date_end.errors %}
+                                    <div class = "error-message">{{ message }}</div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_timing.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_timing (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">
+                            <div class = "form-label">{{ form_stop_route.predict_stop_route_model.label }}</div>
+                            <div class = "form-input">{{ form_stop_route.predict_stop_route_model (class = "input") }}</div>
+                        </div>
+                        <div class = "input-row">{{ form_stop_route.submit_stop_route_predict (class = "submit") }}</div>
+                    </form>
+                </div>
+            </div>
+        </article>
+
+        <div class="loader-wrapper">
+            <div class = 'loading-div'>
+                <div><span class="loader"><span class="loader-inner"></span></span></div>
+                <div class = 'loading-label'>Loading...</div>
+            </div>
+        </div>
+    </body>
+
+    <script src = "{{ url_for('static', filename = 'js/jquery-3.3.1.min.js') }}"></script>
+    <script type = "text/javascript" src="{{ url_for('static', filename = 'js/loading.js') }}"></script>
+</html>
