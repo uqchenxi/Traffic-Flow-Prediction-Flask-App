@@ -42,7 +42,7 @@ The constraints applied provides a deep insight into passenger flow and traffic 
 
 
 
-![traffic_flow_visualization_route](D:\WEB\Projects\Traffic-Flow-Prediction-Flask-App\traffic_flow_visualization_route.png)
+![traffic_flow_visualization_route](traffic_flow_visualization_route.png)
 
 
 
@@ -50,7 +50,7 @@ Users could view passenger flow using heat map:
 
 
 
-![heat_map](D:\WEB\Projects\Traffic-Flow-Prediction-Flask-App\heat_map.png)
+![heat_map](heat_map.png)
 
 
 
