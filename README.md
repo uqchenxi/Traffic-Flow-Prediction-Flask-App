@@ -73,6 +73,8 @@ The application supports deep learning models for traffic flow prediction. The c
 - Timing
 - Model
 
+
+
 ![constraints](constraints.png)
 
 
