@@ -1,20 +1,24 @@
 ## Introduction
 
-This project is a web-based application for traffic flow prediction and visualization purposes. It is based on Python Flask web framework and uses multiple deep learning models including multi-variate LSTM. The technique stack applied is listed as follows:
+This project is a web-based application for research purposes to analyze Queensland traffic condition in Australia. It is based on Python Flask web framework and deploys multiple deep learning models including multi-variate LSTM.
+
+The project delivers two major functionalities, including traffic flow visualization and prediction. The dataset utilized in the project is published by Queensland public transport agency TransLink (https://translink.com.au/).
+
+The technique stack is listed as follows:
 
 - Python 
 - Flask (Python)
+- MVC
+- HTML/CSS/JavaScript
 - Numpy
 - Pandas
 - Matplotlib
 - Pytorch
-- Deep learning algorithm (RNN, LSTM)
-- MVC
-- HTML/CSS/JavaScript
-- Data preprocessing
-- Data cleaning
+- Deep Learning Algorithm (RNN, LSTM)
+- Data Preprocessing
+- Data Cleaning
 
-The project technically consists of two components for its functionalities. The application could visualize passenger flow through the dataset, and it could also predict and visualize future passenger flow based on deep learning algorithm.
+
 
 ## Traffic Flow Visualization
 
@@ -24,13 +28,12 @@ The project technically consists of two components for its functionalities. The 
 
 
 
-Traffic flow pattern is diverse if different constraints are applied. As shown in the panel, the traffic flow could be visualized by different granularities in terms of time intervals. Users could set different constraints on traffic flow including:
+In traffic flow analysis, traffic flow pattern is diverse due to customized constraints. As shown in the screenshot, the traffic flow could be visualized by different granularities considering time intervals. Other elements of constraints on traffic flow are listed as follows:
 
-- Start date
-- End date
-- Timing
 - ID
-- Time Interval
+- Start Date
+- End Date
+- Timing
 
 
 
@@ -38,7 +41,7 @@ Traffic flow pattern is diverse if different constraints are applied. As shown i
 
 
 
-The constraints applied provides a deep insight into passenger flow and traffic condition for analysis purposes. Traffic flow could be customized by a certain route or a bus stop:
+The statistics panel is placed at the top-right corner, featured by maximum, minimum, and mean value. The passenger flow could be visualized in different modes, customized by a stop, a route, or combined.
 
 
 
@@ -46,7 +49,7 @@ The constraints applied provides a deep insight into passenger flow and traffic 
 
 
 
-Users could view passenger flow using heat map:
+In travel advice panel, a heat map is deployed to visualize density and spatial distribution of passenger flow. The red zone in the map represents high density of the traffic flow. Users can slide the bar to select a specific date for visualization.
 
 
 
@@ -54,22 +57,26 @@ Users could view passenger flow using heat map:
 
 
 
+Top busy route panel is to display the busiest routes throughout a certain period, and it is an early prototype for future application that provides information for travelers.
+
+
+
+![top_busy_routes](top_busy_routes.png)
+
+
+
 ## Traffic Flow Prediction
 
+The application has implemented cutting-edge deep learning models for time series prediction used in passenger flow. These models consist of Multi-variate LSTM, LSTM, RNN, and GRU. The mechanism in the models is sliding window method, which predicts current time step based on previous ones. 
 
-
-![prediction](prediction.png)
-
-
-
-The application supports deep learning models for traffic flow prediction. The constraints includes:
+Similar to visualization function, the predicted passenger flow can be customized by various constraints, which includes
 
 - ID
 - Epoch
-- Training size
-- Future steps
-- Start date
-- End date
+- Training Size
+- Future Steps
+- Start Date
+- End Date
 - Timing
 - Model
 
@@ -79,7 +86,27 @@ The application supports deep learning models for traffic flow prediction. The c
 
 
 
-## Dataset
+Prediction function can display future passenger flow step by step based on input parameters of Future Step.
 
-The dataset used in the project is collected and published by TransLink, which is a public transit agency for Queensland Australia. The dataset is available at https://drive.google.com/file/d/1O-ossZ8x4m2r-rJEV60Fe8VkMGVCCAJy/view?usp=sharing
+
+
+![prediction](prediction.png)
+
+
+
+In the panel of Prediction Result, real passenger flow in red and predicted passenger flow in blue are presented separately. On the right side of the green dot line, it is predicted result based on training process on the left side of the green dot line. The prediction result could be measured by two baselines, including RMSE and MAPE.
+
+
+
+![prediction_result](prediction_result.png)
+
+
+
+## Configuration
+
+- Please install and configure Python Flask before using this application
+- configuration.text contains all information about the version of each used library.
+- It is recommended to use PyCharm editor to run this application on local server, and please set 'Script' folder as source root.
+- app.py is the main entrance of the application, so run it to get access to Upload Page.
+- Please configure working directory as relative path 'Script\data\Translink_UQ'
 
