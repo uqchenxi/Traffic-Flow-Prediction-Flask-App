@@ -24,7 +24,7 @@ The technique stack is listed as follows:
 
 
 
-![traffic_flow_visualization](traffic_flow_visualization.png)
+![traffic_flow_visualization](traffic_flow_visualization1.png)
 
 
 
@@ -37,7 +37,7 @@ In traffic flow analysis, traffic flow pattern is diverse due to customized cons
 
 
 
-![traffic_flow_different_time_interval](traffic_flow_different_time_interval.png)
+![traffic_flow_different_time_interval](traffic_flow_different_time_interval1.png)
 
 
 
@@ -45,7 +45,7 @@ The statistics panel is placed at the top-right corner, featured by maximum, min
 
 
 
-![traffic_flow_visualization_route](traffic_flow_visualization_route.png)
+![traffic_flow_visualization_route](traffic_flow_visualization_route1.png)
 
 
 
@@ -53,7 +53,7 @@ In travel advice panel, a heat map is deployed to visualize density and spatial 
 
 
 
-![heat_map](heat_map.png)
+![heat_map](heat_map1.png)
 
 
 
@@ -61,7 +61,7 @@ Top busy route panel is to display the busiest routes throughout a certain perio
 
 
 
-![top_busy_routes](top_busy_routes.png)
+![top_busy_routes](top_busy_routes1.png)
 
 
 
@@ -82,7 +82,7 @@ Similar to visualization function, the predicted passenger flow can be customize
 
 
 
-![constraints](constraints.png)
+![constraints](constraints1.png)
 
 
 
@@ -90,7 +90,7 @@ Prediction function can display future passenger flow step by step based on inpu
 
 
 
-![prediction](prediction.png)
+![prediction](prediction1.png)
 
 
 
@@ -98,7 +98,7 @@ In the panel of Prediction Result, real passenger flow in red and predicted pass
 
 
 
-![prediction_result](prediction_result.png)
+![prediction_result](prediction_result1.png)
 
 
 
